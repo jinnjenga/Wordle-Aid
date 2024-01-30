@@ -1,0 +1,121 @@
+# Programmers : Jincy Njenga
+# Course: CS 151, Dr. Kenyon
+# Due Date 4/12/23
+# Lab Assignment: 5
+# Problem Statement: adds or removes words from list based on user input
+# Data In: letter, index, and number of vowels
+# Data Out: list of words containing user specified letter
+# Credits:https://www.w3schools.com/python/python_file_write.asp and in class examples
+
+import os
+
+# defines main function
+def main():
+# print purpose of the program
+    print("The purpose of this program is to help you filter a list of words, based on your criteria, and add those words to a new file; this program will help you solve wordle")
+# while loop until user inputs correct filename
+    filename = input("What is the filename?")
+    while not os.path.exists(filename):
+        print("This file does not exist, try again")
+        filename = input("What is the filename")
+
+# give user task options
+    option = int(input("Enter 1 for letter finder, enter 2 for letter location, enter 3 for vowel counter, enter 4"))
+    if option == 1:
+        letter_finder(filename)
+    elif option == 2:
+        letter_location(filename)
+    elif option == 3:
+        vowel_counter(filename)
+    elif option == 4:
+        remove_word(filename)
+    print("Thank you for using the program")
+
+def letter_finder(filename):
+    word_file = open(filename, "r")
+    letter_finder_list = []
+    char = input("What letter did you want to find?")
+    for word in word_file:
+        for letter in word:
+            if letter == char and word not in letter_finder_list:
+                letter_finder_list.append(word)
+    # will add words in new list to new file
+    letter_finder_new_file = new_file()
+    for found_words in letter_finder_list:
+        letter_finder_new_file.write(found_words)
+
+# defines new_file function which allows user to create and write to a file
+def new_file():
+    file = input("What file do you want to add the words to")
+    user_file = open(file, "w")
+    return user_file
+
+
+# defines letter_location file with the parameter file
+# letter_location function allows user to add to a list the words with a specific letter in a specific location
+def letter_location(filename):
+    word_file = open(filename, "r")
+    letter_location_list = []
+    char = input("What letter did you want to find?")
+    location = int(input("What location did you want to find the letter?"))
+    location -= 1
+    # goes through each word in 5letterwords.txt file
+    for word in word_file:
+    # word will be added to list if word contains letter in a user specified location
+        if word[location] == char:
+            letter_location_list.append(word)
+    # function will create a new file
+    list_of_words = new_file()
+    #words in new list wil be added to the new file
+    for located_words in letter_location_list:
+        list_of_words.write(located_words)
+
+# defines function vowel_counter with parameter filename
+# vowel_counter will add to a list words with a user specificed number of vowels
+def vowel_counter(filename):
+    word_file = open(filename, "r")
+    vowel_counter_list = []
+    num_vowels = int(input("How many vowels would you like to find in a word"))
+    for word in word_file:
+        # will count the number of vowels in each word
+        if num_vowels == 1:
+            if word.count("a") + word.count("e") + word.count("i") + word.count("o") + word.count("u") == 1:
+                vowel_counter_list.append(word)
+        elif num_vowels == 2:
+            if word.count("a") + word.count("e") + word.count("i") + word.count("o") + word.count("u") == 2:
+                vowel_counter_list.append(word)
+        elif num_vowels == 3:
+            if word.count("a") + word.count("e") + word.count("i") + word.count("o") + word.count("u") == 3:
+                vowel_counter_list.append(word)
+        elif num_vowels == 4:
+            if word.count("a") + word.count("e") + word.count("i") + word.count("o") + word.count("u") == 4:
+                vowel_counter_list.append(word)
+        elif num_vowels == 5:
+            if word.count("a") + word.count("e") + word.count("i") + word.count("o") + word.count("u") == 5:
+                vowel_counter_list.append(word)
+    # calls function new_file, user will create a new file
+    list_of_words_vowels = new_file()
+    # loop will go through every word in the new list and add to the new file
+    for vowel_words in vowel_counter_list:
+        list_of_words_vowels.write(vowel_words)
+
+# define function remove_word with parameter filename
+# remove_word function will remove words with a user specificed letter
+def remove_word(filename):
+    word_file = open(filename, "r")
+    remove_word_list = []
+    #remove_word_list.extend(word_file)
+    remove_letter = input("What letter do you not want in a word")
+    # loop will go through every word in 5letterwords.txt file
+    for word in word_file:
+    # if the letter is in the word, it will be removed from the list
+        if remove_letter not in word:
+            remove_word_list.append(word)
+    # calls function new_file to create a user file
+    file_new_list = new_file()
+    # will add words from list into the new file
+    for new_words in remove_word_list:
+        file_new_list.write(new_words)
+
+# calls main function
+main()
